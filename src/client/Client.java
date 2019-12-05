@@ -8,7 +8,6 @@ package client;
 import java.net.Socket;
 import threads.ReadingThread;
 import threads.WritingThread;
-import ui.FChat;
 import ui.GuiKontroler;
 
 /**

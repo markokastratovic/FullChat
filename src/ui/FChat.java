@@ -8,7 +8,6 @@ package ui;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import threads.WritingThread;
 
 /**
  *

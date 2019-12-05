@@ -9,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import threads.ReadingThread;
 import threads.WritingThread;
-import ui.FChat;
 import ui.GuiKontroler;
 
 /**

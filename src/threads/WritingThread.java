@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.FChat;
+import ui.GuiKontroler;
 
 /**
  *
@@ -21,12 +22,13 @@ import ui.FChat;
 public class WritingThread extends Thread {
 
     private final Socket socket;
-    private FChat fChat = null;
+    private GuiKontroler kontroler = null;
     boolean messageReady = false;
 
-    public WritingThread(Socket socket) {
+    public WritingThread(Socket socket, GuiKontroler kontroler) {
         super();
         this.socket = socket;
+        this.kontroler = kontroler;
     }
 
     @Override
@@ -36,8 +38,8 @@ public class WritingThread extends Thread {
             messageReady = false;
             while (true) {
                 if (messageReady) {
-                    printWriter.println(fChat.getTxtMessage().getText());
-                    fChat.addSentMessage("Me: " + fChat.getTxtMessage().getText());
+                    printWriter.println(kontroler.getTxtMessage());
+                    kontroler.addSentMessage("Me: " + kontroler.getTxtMessage());
                     messageReady = false;
                 }
                 Thread.sleep(200);
@@ -51,10 +53,6 @@ public class WritingThread extends Thread {
 
     public void messageReady() {
         messageReady = true;
-    }
-
-    public void setfChat(FChat fChat) {
-        this.fChat = fChat;
     }
 
 }

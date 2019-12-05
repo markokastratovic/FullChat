@@ -9,6 +9,7 @@ import java.net.Socket;
 import threads.ReadingThread;
 import threads.WritingThread;
 import ui.FChat;
+import ui.GuiKontroler;
 
 /**
  *
@@ -17,7 +18,7 @@ import ui.FChat;
 public class Client {
 
     private Socket socket;
-    private FChat gui;
+    GuiKontroler kontroler;
 
     public static void main(String[] args) {
         Client client = new Client();
@@ -25,26 +26,17 @@ public class Client {
     }
 
     public Client() {
-        prepareGui();
-    }
-
-    public void prepareGui() {
-        gui = new FChat();
-        gui.setVisible(true);
-        gui.getBtnSend().setEnabled(true);
-        gui.setTitle("Client");
+        kontroler = new GuiKontroler("Client");
     }
 
     private void connect() {
         try {
             socket = new Socket("localhost", 8555);
-            ReadingThread readingThread = new ReadingThread(socket);
+            ReadingThread readingThread = new ReadingThread(socket, kontroler);
             readingThread.start();
-            WritingThread writtingThread = new WritingThread(socket);
+            WritingThread writtingThread = new WritingThread(socket, kontroler);
             writtingThread.start();
-            gui.setWritingThread(writtingThread);
-            writtingThread.setfChat(gui);
-            readingThread.setfChat(gui);
+            kontroler.setWritingThread(writtingThread);
 
             readingThread.join();
             writtingThread.join();

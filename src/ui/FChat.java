@@ -22,11 +22,6 @@ public class FChat extends javax.swing.JFrame {
     public FChat() {
         initComponents();
     }
-    WritingThread writingThread;
-
-    public void setWritingThread(WritingThread writingThread) {
-        this.writingThread = writingThread;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,11 +91,6 @@ public class FChat extends javax.swing.JFrame {
         jLabel3.setText("Message: ");
 
         btnSend.setText("Send");
-        btnSend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSendActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,10 +124,6 @@ public class FChat extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        writingThread.messageReady();
-    }//GEN-LAST:event_btnSendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,52 +179,16 @@ public class FChat extends javax.swing.JFrame {
         return txtAllMessages;
     }
 
-    public void setTxtAllMessages(JTextArea txtAllMessages) {
-        this.txtAllMessages = txtAllMessages;
-    }
-
     public JTextField getTxtLastMessage() {
         return txtLastMessage;
-    }
-
-    public void setTxtLastMessage(JTextField txtLastMessage) {
-        this.txtLastMessage = txtLastMessage;
     }
 
     public JTextField getTxtMessage() {
         return txtMessage;
     }
 
-    public void setTxtMessage(JTextField txtMessage) {
-        this.txtMessage = txtMessage;
-    }
-
     public JButton getBtnSend() {
         return btnSend;
-    }
-
-    public void setBtnSend(JButton btnSend) {
-        this.btnSend = btnSend;
-    }
-
-    public void addSentMessage(String m) {
-        //txtLastMessage.setText(m);
-        if (txtAllMessages.getText().isEmpty()) {
-            txtAllMessages.append(m);
-        } else {
-            txtAllMessages.append("\n" + m);
-        }
-    }
-
-    public void addRecievedMessage(String m) {
-        txtLastMessage.setText(m);
-
-        if (txtAllMessages.getText().isEmpty()) {
-            txtAllMessages.append(m);
-        } else {
-            txtAllMessages.append("\n" + m);
-        }
-
     }
 
 }

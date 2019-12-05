@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import ui.FChat;
+import ui.GuiKontroler;
 
 /**
  *
@@ -18,15 +19,12 @@ import ui.FChat;
 public class ReadingThread extends Thread {
 
     private final Socket socket;
-    private FChat fChat = null;
+    private GuiKontroler kontroler = null;
 
-    public ReadingThread(Socket socket) {
+    public ReadingThread(Socket socket, GuiKontroler kontroler) {
         super();
         this.socket = socket;
-    }
-
-    public void setfChat(FChat fChat) {
-        this.fChat = fChat;
+        this.kontroler = kontroler;
     }
 
     @Override
@@ -34,7 +32,7 @@ public class ReadingThread extends Thread {
         while (true) {
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                fChat.addRecievedMessage("Other: " + bufferedReader.readLine());
+                kontroler.addRecievedMessage("Other: " + bufferedReader.readLine());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

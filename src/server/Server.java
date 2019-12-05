@@ -10,6 +10,7 @@ import java.net.Socket;
 import threads.ReadingThread;
 import threads.WritingThread;
 import ui.FChat;
+import ui.GuiKontroler;
 
 /**
  *
@@ -18,17 +19,10 @@ import ui.FChat;
 public class Server {
 
     private ServerSocket serverSocket;
-    private FChat gui;
+    GuiKontroler kontroler;
 
     public Server() {
-        prepareGui();
-    }
-
-    public void prepareGui() {
-        gui = new FChat();
-        gui.setVisible(true);
-        gui.getBtnSend().setEnabled(true);
-        gui.setTitle("Server");
+        kontroler = new GuiKontroler("Server");
     }
 
     public static void main(String[] args) {
@@ -45,13 +39,11 @@ public class Server {
         System.out.println("Waiting clients");
         Socket socket = serverSocket.accept();
         System.out.println("Client connected");
-        ReadingThread readingThread = new ReadingThread(socket);
+        ReadingThread readingThread = new ReadingThread(socket, kontroler);
         readingThread.start();
-        WritingThread writtingThread = new WritingThread(socket);
+        WritingThread writtingThread = new WritingThread(socket, kontroler);
         writtingThread.start();
-        gui.setWritingThread(writtingThread);
-        writtingThread.setfChat(gui);
-        readingThread.setfChat(gui);
+        kontroler.setWritingThread(writtingThread);
 
         readingThread.join();
         writtingThread.join();
